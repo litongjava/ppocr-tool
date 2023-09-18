@@ -1,8 +1,13 @@
 import argparse
+import os
 import sys
+
+paddleocr_path = os.environ.get('PADDLEOCR_PATH')
+if paddleocr_path:
+    sys.path.insert(0, paddleocr_path)
+
 import paddle
 import paddleocr
-from paddleocr import PaddleOCR, draw_ocr
 
 
 def version():
@@ -13,7 +18,7 @@ def version():
 
 def ocr(source, language):
     # 检测+方向分类器+识别全流程
-    from paddleocr import PaddleOCR, draw_ocr
+    from paddleocr import PaddleOCR
 
     ocr = PaddleOCR(use_angle_cls=True, lang=language)  # need to run only once to download and load model into memory
 
