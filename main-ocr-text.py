@@ -4,17 +4,21 @@ import sys
 import cv2
 import paddle
 import paddleocr
-from paddleocr.ppocr.utils.network import download_with_progressbar, is_link
+from paddleocr.ppocr.utils.network import download_with_progressbar
 from paddleocr.ppocr.utils.utility import check_and_read, get_image_file_list
 from paddleocr.ppstructure.predict_system import save_structure_res
 from paddleocr.ppstructure.utility import init_args
-from paddleocr.tools.infer.utility import str2bool
 
 paddleocr_path = os.environ.get('PADDLEOCR_PATH')
-
 if paddleocr_path:
     sys.path.insert(0, paddleocr_path)
 
+
+def str2bool(v):
+    return v.lower() in ("true", "yes", "t", "y", "1")
+
+def is_link(s):
+    return s is not None and s.startswith('http')
 
 def version():
     print(f"Python Version: {sys.version}")
@@ -159,7 +163,7 @@ def main():
             all_res = []
             for index, (new_img_path, img) in enumerate(img_paths):
                 paddleocr.paddleocr.logger.info('processing {}/{} page:'.format(index + 1,
-                                                            len(img_paths)))
+                                                                                len(img_paths)))
                 new_img_name = os.path.basename(new_img_path).split('.')[0]
                 result = engine(img, img_idx=index)
                 save_structure_res(result, args.output, img_name, index)

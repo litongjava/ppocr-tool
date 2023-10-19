@@ -1,31 +1,24 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 
-block_cipher = None
-
-
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[],
-    hiddenimports=[],
+    datas=[('D:\\ProgramData\\Anaconda3\\envs\\paddle_ocr_cpu_env\\Lib\\site-packages\\paddleocr\\tools', './paddleocr/tools'), ('D:\\ProgramData\\Anaconda3\\envs\\paddle_ocr_cpu_env\\Lib\\site-packages\\paddleocr\\ppocr', './paddleocr/ppocr'), ('D:\\ProgramData\\Anaconda3\\envs\\paddle_ocr_cpu_env\\Lib\\site-packages\\paddleocr\\ppstructure', './paddleocr/ppstructure')],
+    hiddenimports=['Pillow', 'PIL.ImageDraw', 'shapely', 'pyclipper', 'scikit-image', 'imgaug', 'lmdb', 'tqdm', 'numpy', 'visualdl', 'rapidfuzz', 'opencv-python', 'opencv-contrib-python', 'cython', 'lxml', 'premailer', 'openpyxl', 'attrdict', 'PyMuPDF', 'pyyaml', 'imghdr', 'scipy.io'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
-    win_no_prefer_redirects=False,
-    win_private_assemblies=False,
-    cipher=block_cipher,
     noarchive=False,
 )
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
-    a.zipfiles,
     a.datas,
     [],
     name='main',
