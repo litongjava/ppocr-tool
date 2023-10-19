@@ -17,8 +17,10 @@ if paddleocr_path:
 def str2bool(v):
     return v.lower() in ("true", "yes", "t", "y", "1")
 
+
 def is_link(s):
     return s is not None and s.startswith('http')
+
 
 def version():
     print(f"Python Version: {sys.version}")
@@ -117,18 +119,7 @@ def main():
         img_name = os.path.basename(img_path).split('.')[0]
         paddleocr.paddleocr.logger.info('{}{}{}'.format('*' * 10, img_path, '*' * 10))
         if args.type == 'ocr':
-            result = engine.ocr(img_path,
-                                det=args.det,
-                                rec=args.rec,
-                                cls=args.use_angle_cls,
-                                bin=args.binarize,
-                                inv=args.invert,
-                                alpha_color=args.alphacolor)
-            if result is not None:
-                for idx in range(len(result)):
-                    res = result[idx]
-                    for line in res:
-                        paddleocr.paddleocr.logger.info(line)
+            ocrType(args, engine, img_path, args.output, img_name)
         elif args.type == 'structure':
             img, flag_gif, flag_pdf = check_and_read(img_path)
             if not flag_gif and not flag_pdf:
@@ -193,5 +184,28 @@ def main():
             paddleocr.paddleocr.logger.info('result save to {}'.format(args.output))
 
 
-if __name__ == '__main__':
-    main()
+def ocrType(args, engine, img_path, output, img_name):
+    result = engine.ocr(img_path,
+                        det=args.det,
+                        rec=args.rec,
+                        cls=args.use_angle_cls,
+                        bin=args.binarize,
+                        inv=args.invert,
+                        alpha_color=args.alphacolor)
+
+    if result is not None:
+        full_text = ""  # 初始化一个空的字符串变量
+        for idx in range(len(result)):
+            res = result[idx]
+            for line in res:
+                paddleocr.paddleocr.logger.info(line)
+                coordinates, content_info = line  # 解包line
+                text, confidence = content_info  # 解包content_info
+                full_text += text + "\n"  # 将每一行的文本结果追加到full_text
+        if output:
+            if not os.path.exists(output):
+                os.mkdir(output)
+            output_file = os.path.join(args.output, '{}.txt'.format(img_name))
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(full_text)  # 将full_text写入output_file
+

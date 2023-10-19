@@ -39,7 +39,7 @@ def build_on_unix():
     # PyInstaller 构建命令 for Linux & MacOS
     packages_path = get_packages_path()
     paddle_libs_path = get_paddle_libs_path()
-    cmd = (f'pyinstaller -F main-ocr-text.py --name ppocr '
+    cmd = (f'pyinstaller -F demo.py --name ppocr '
            f'--add-data "{packages_path}/paddleocr/tools:./paddleocr/tools" '
            f'--add-data "{packages_path}/paddleocr/ppocr:./paddleocr/ppocr" '
            f'--add-data "{packages_path}/paddleocr/ppstructure:./paddleocr/ppstructure" '

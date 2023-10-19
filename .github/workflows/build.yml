@@ -6,36 +6,36 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  build_macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install paddlepaddle -i https://mirror.baidu.com/pypi/simple
-          pip install "paddleocr>=2.0.1" -i https://mirror.baidu.com/pypi/simple
-          pip install pyinstaller
-#          pip install -r requirements.txt
-          
-
-      - name: Build package
-        run: python build.py
-
-      - name: Upload package
-        uses: actions/upload-artifact@v3
-        with:
-          name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}
-          path: dist
-
-      - name: Test
-        run: dist/ppocr -v
+#  build_macos:
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Set up Python
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: 3.8
+#
+#      - name: Install dependencies
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install paddlepaddle -i https://mirror.baidu.com/pypi/simple
+#          pip install "paddleocr>=2.0.1" -i https://mirror.baidu.com/pypi/simple
+#          pip install pyinstaller
+##          pip install -r requirements.txt
+#
+#
+#      - name: Build package
+#        run: python build.py
+#
+#      - name: Upload package
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}
+#          path: dist
+#
+#      - name: Test
+#        run: dist/ppocr -v
 
   # build_macos_m2:
   #   runs-on: macos-latest
@@ -54,7 +54,7 @@ jobs:
   #         pip install pyinstaller
 
   #     - name: Build package
-  #       run: pyinstaller -F main.py
+  #       run: pyinstaller -F demo.py
 
   #     - name: Upload package
   #       uses: actions/upload-artifact@v3
@@ -62,43 +62,43 @@ jobs:
   #         name: doc-search-${{ runner.os }}-${{ runner.arch }}
   #         path: dist
 
-  build_ubuntu:
-    strategy:
-      matrix:
-        os: [ ubuntu-20.04, ubuntu-latest ]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install paddlepaddle -i https://mirror.baidu.com/pypi/simple
-          pip install "paddleocr>=2.0.1" -i https://mirror.baidu.com/pypi/simple
-          pip install pyinstaller
-#          pip install -r requirements.txt
-          
-      - name: Get GLIBC version
-        id: glibc-version
-        run: echo ::set-output name=glibc::$(ldd --version | grep "ldd" | awk '{print $NF}')
-
-      - name: Build package
-        run: python build.py
-
-      - name: Upload package
-        uses: actions/upload-artifact@v3
-        with:
-          name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}-${{ steps.glibc-version.outputs.glibc }}
-          path: dist
-
-      
-      - name: Test
-        run: dist/ppocr -v
+#  build_ubuntu:
+#    strategy:
+#      matrix:
+#        os: [ ubuntu-20.04, ubuntu-latest ]
+#    runs-on: ${{ matrix.os }}
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Set up Python
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: 3.8
+#
+#      - name: Install dependencies
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install paddlepaddle -i https://mirror.baidu.com/pypi/simple
+#          pip install "paddleocr>=2.0.1" -i https://mirror.baidu.com/pypi/simple
+#          pip install pyinstaller
+##          pip install -r requirements.txt
+#
+#      - name: Get GLIBC version
+#        id: glibc-version
+#        run: echo ::set-output name=glibc::$(ldd --version | grep "ldd" | awk '{print $NF}')
+#
+#      - name: Build package
+#        run: python build.py
+#
+#      - name: Upload package
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}-${{ steps.glibc-version.outputs.glibc }}
+#          path: dist
+#
+#
+#      - name: Test
+#        run: dist/ppocr -v
 
   build_windows:
     runs-on: windows-latest
