@@ -34,6 +34,9 @@ jobs:
           name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}
           path: dist
 
+      - name: Test
+        run: dist/ppocr -v
+
   # build_macos_m2:
   #   runs-on: macos-latest
   #   steps:
@@ -93,6 +96,10 @@ jobs:
           name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}-${{ steps.glibc-version.outputs.glibc }}
           path: dist
 
+      
+      - name: Test
+        run: dist/ppocr -v
+
   build_windows:
     runs-on: windows-latest
     steps:
@@ -120,3 +127,6 @@ jobs:
         with:
           name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}
           path: dist
+      
+      - name: Test
+        run: dist\ppocr -v

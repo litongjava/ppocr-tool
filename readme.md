@@ -50,8 +50,8 @@ python build.yml
 ```
 测试1
 ```
-cd dist
-./ppocr -ot=text -src doc\imgs\11.jpg --lang ch
+dist\ppocr -ot=text -src doc\imgs\11.jpg --lang ch
+dist/ppocr -ot=text -src doc/imgs/11.jpg --lang ch
 ```
 测试2
 ```
