@@ -1,35 +1,21 @@
 import os
+from distutils.sysconfig import get_python_lib
 import sys
 import shutil
-import subprocess
-
-
-def get_python_home():
-    if os.name == 'nt':
-        return os.path.dirname(sys.executable)
-    else:
-        #sys.executable=/opt/hostedtoolcache/Python/3.8.18/x64/bin/python
-        return os.path.dirname(os.path.dirname(sys.executable))
-    
-
-
-def get_paddle_libs_path():
-    # 获取 Python 安装路径
-    python_home = get_python_home()
-    print(python_home)
-
-    # 构造 lib 路径
-    paddle_libs_path = os.path.join(python_home, "Lib", "site-packages", "paddle", "libs")
-    print(paddle_libs_path)
-    return paddle_libs_path
-
 
 def get_packages_path():
-    python_home = os.path.dirname(get_python_home())
-    packages_path = os.path.join(python_home, "Lib", "site-packages")
+    packages_path = get_python_lib()
     print(packages_path);
     return packages_path;
 
+def get_paddle_libs_path():
+    # 获取 Python 安装路径
+    packages_path = get_packages_path()
+
+    # 构造 lib 路径
+    paddle_libs_path = os.path.join(packages_path, "paddle", "libs")
+    print(paddle_libs_path)
+    return paddle_libs_path
 
 def build_on_windows():
     # PyInstaller 构建命令 for Windows
