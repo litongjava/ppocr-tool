@@ -60,7 +60,10 @@ jobs:
   #         path: dist
 
   build_ubuntu:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ ubuntu-20.04, ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
 
@@ -77,6 +80,9 @@ jobs:
           pip install pyinstaller
 #          pip install -r requirements.txt
           
+      - name: Get GLIBC version
+        id: glibc-version
+        run: echo ::set-output name=glibc::$(ldd --version | grep "ldd" | awk '{print $NF}')
 
       - name: Build package
         run: python build.py
@@ -84,7 +90,7 @@ jobs:
       - name: Upload package
         uses: actions/upload-artifact@v3
         with:
-          name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}
+          name: ppocr-tool-${{ runner.os }}-${{ runner.arch }}-${{ steps.glibc-version.outputs.glibc }}
           path: dist
 
   build_windows:
