@@ -5,7 +5,12 @@ import subprocess
 
 
 def get_python_home():
-    return os.path.dirname(sys.executable)
+    if os.name == 'nt':
+        return os.path.dirname(sys.executable)
+    else:
+        #sys.executable=/opt/hostedtoolcache/Python/3.8.18/x64/bin/python
+        return os.path.dirname(os.path.dirname(sys.executable))
+    
 
 
 def get_paddle_libs_path():
@@ -20,7 +25,7 @@ def get_paddle_libs_path():
 
 
 def get_packages_path():
-    python_home = os.path.dirname(sys.executable)
+    python_home = os.path.dirname(get_python_home())
     packages_path = os.path.join(python_home, "Lib", "site-packages")
     print(packages_path);
     return packages_path;
