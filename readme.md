@@ -42,3 +42,21 @@ python main-ocr-text.py -ot=text -src E:\code\python\project-github\PaddleOCR\do
 模型保存位置
 - windows C:\Users\Administrator\.paddleocr\whl
 - macos /Users/ping/.paddleocr/whl
+
+## 编译成二进制文件
+### Windows
+``` 
+pyinstaller -F main-ocr-text.py --name ppocr --add-data "D:\ProgramData\Anaconda3\envs\paddle_ocr_cpu_env\Lib\site-packages\paddleocr\tools;./paddleocr/tools" --add-data "D:\ProgramData\Anaconda3\envs\paddle_ocr_cpu_env\Lib\site-packages\paddleocr\ppocr;./paddleocr/ppocr" --add-data "D:\ProgramData\Anaconda3\envs\paddle_ocr_cpu_env\Lib\site-packages\paddleocr\ppstructure;./paddleocr/ppstructure" --hidden-import=Pillow --hidden-import=PIL.ImageDraw --hidden-import=shapely --hidden-import=pyclipper --hidden-import=scikit-image --hidden-import=imgaug --hidden-import=lmdb --hidden-import=tqdm --hidden-import=numpy --hidden-import=visualdl --hidden-import=rapidfuzz --hidden-import=opencv-python --hidden-import=opencv-contrib-python --hidden-import=cython --hidden-import=lxml --hidden-import=premailer --hidden-import=openpyxl --hidden-import=attrdict --hidden-import=PyMuPDF --hidden-import=pyyaml --hidden-import=imghdr --hidden-import=scipy.io
+```
+构建完成后复制libs到指定生成的程序的同级目录
+```
+D:\ProgramData\Anaconda3\envs\paddle_ocr_cpu_env\Lib\site-packages\paddle\libs
+```
+测试1
+```
+dist\ppocr -ot=text -src E:\code\python\project-github\PaddleOCR\doc\imgs\11.jpg --lang ch
+```
+测试2
+```
+dist\ppocr --image_dir "D:\images\Snipaste_2023-10-11_02-08-03.png" --use_angle_cls true --use_gpu false
+```
