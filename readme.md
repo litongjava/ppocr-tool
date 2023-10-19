@@ -54,9 +54,9 @@ D:\ProgramData\Anaconda3\envs\paddle_ocr_cpu_env\Lib\site-packages\paddle\libs
 ```
 测试1
 ```
-dist\ppocr -ot=text -src E:\code\python\project-github\PaddleOCR\doc\imgs\11.jpg --lang ch
+dist\ppocr -ot=text -src doc\imgs\11.jpg --lang ch
 ```
 测试2
 ```
-dist\ppocr --image_dir "D:\images\Snipaste_2023-10-11_02-08-03.png" --use_angle_cls true --use_gpu false
+dist\ppocr --image_dir doc\imgs\11.jpg --use_angle_cls true --use_gpu false
 ```
