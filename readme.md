@@ -12,7 +12,7 @@ pip install "paddleocr>=2.0.1" -i https://mirror.baidu.com/pypi/simple
 ```
 ## 识别图片
 ```
-python main-ocr-text.py -src E:\code\python\project-github\PaddleOCR\doc\imgs\11.jpg -lang ch
+python main-ocr-text.py -ot=text -src E:\code\python\project-github\PaddleOCR\doc\imgs\11.jpg -lang ch
 ```
 
 识别PDF

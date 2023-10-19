@@ -33,6 +33,7 @@ def main():
     parser = argparse.ArgumentParser(description='PaddleOCR Utility')
 
     # 添加参数
+    parser.add_argument('-ot', '--output_type', type=str, help='输出类型,默认text')
     parser.add_argument('-v', '--version', action='store_true', help='输出版本')
     parser.add_argument('-src', '--source', type=str, help='图像文件路径')
     parser.add_argument('-lang', '--language', type=str, help='语言')
@@ -43,8 +44,10 @@ def main():
     if args.version:
         return version()
 
-    if args.source:
+    if args.output_type:
         ocr(args.source, args.language);
+    else:
+        paddleocr.paddleocr.main()
 
 
 if __name__ == '__main__':
