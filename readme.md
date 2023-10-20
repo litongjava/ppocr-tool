@@ -1,7 +1,11 @@
 # ppocr-tool
 ## Intruduction
 ppocr-tool是一个款基于PaddlePaddleOCR的命令行工具,使PaddlePalldeOCR的命令更加易用
-## 准备环境
+## 使用pip安装
+pip install ppocr-tool
+
+#源码安装
+### 准备环境
 ```
 conda create --name paddle_ocr_cpu_env python=3.8 -y
 activate paddle_ocr_cpu_env 
@@ -12,7 +16,7 @@ conda activate paddle_ocr_cpu_env
 pip install paddlepaddle -i https://mirror.baidu.com/pypi/simple
 pip install "paddleocr>=2.0.1" -i https://mirror.baidu.com/pypi/simple
 ```
-## 安装到本地
+### 安装到本地
 ```
 pip install .
 ```
