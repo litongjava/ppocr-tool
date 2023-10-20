@@ -1,0 +1,2 @@
+paddlepaddle
+paddleocr>=2.0.1

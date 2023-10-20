@@ -150,3 +150,4 @@ cmake-build-debug/
 cmake-build-debug-mingw/
 venv/
 *.spec
+PP_Ocr_Tool.egg-info/

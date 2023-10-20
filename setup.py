@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="PP Ocr Tool",
+    name="ppocr-tool",
     version="1.0.1",
     packages=find_packages('src'),
     package_dir={'ppocrtool': 'src/ppocrtool'},
